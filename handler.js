@@ -468,23 +468,42 @@ export async function participantsUpdate({ id, participants, action }) {
                     } catch (e) {
                     } finally {
                         text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', await this.getName(id)).replace('@desc', groupMetadata.desc?.toString() || 'unknow') :
-                            (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', `${this.getName(user)}`)
-                            let wel = await new knights.Welcome2()
-                 .setAvatar(pp)
-                 .setUsername(this.getName(user)) 
-                 .setBg("https://telegra.ph/file/0b814069d86ee9a022da5.jpg")
-                 .setGroupname(groupMetadata.subject) 
-                 .setMember(groupMetadata.participants.length)
-                 .toAttachment()
-                 
-              let lea = await new knights.Goodbye()
-                .setUsername(this.getName(user))
-                .setGuildName(groupMetadata.subject)
-                .setGuildIcon(ppgc)
-                .setMemberCount(groupMetadata.participants.length)
-                .setAvatar(pp)
-                .setBackground("https://telegra.ph/file/0db212539fe8a014017e3.jpg")
-                .toAttachment()
+                             (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
+                        //this.sendFile(id, pp, 'pp.jpg', text, null, false, { mentions: [user] })
+
+                     
+                       this.sendMessage(id, {text: text, thumbnail: await( await this.getFile(pp)).data , contextInfo:{ mentionedJid: [user] , externalAdReply: { showAdAttribution: true,
+mediaType:  2,
+mediaUrl: 'https://www.instagram.com/p/Cch2IoGFomX/?utm_source=ig_web_copy_link',
+title: '「 ɢ ʀ ᴏ ᴜ ᴘ  ɴ ᴏ ᴛ ɪ ғ ɪ ᴄ ᴀ ᴛ ɪ ᴏ ɴ s 」',
+body: '🍂 ᴇ ʟ ᴀ ɪ ɴ ᴀ  ᴍ ᴜ ʟ ᴛ ɪ ᴅ ᴇ ᴠ ɪ ᴄ ᴇ 🍂',
+sourceUrl: 'https://www.instagram.com/p/Cch2IoGFomX/?utm_source=ig_web_copy_link', thumbnail: await( await this.getFile(pp)).data
+  }
+ }})
+                    }
+                }
+                this.relayMessage(id, {text: text, 
+                        scheduledCallCreationMessage: {
+                           callType: "AUDIO",
+                           scheduledTimestampMs: 1200,
+                           title: text
+                        }
+                    }, {})                     
+            }
+            break
+        case 'promote':
+            text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')
+        case 'demote':
+            if (!text)
+                text = (chat.sDemote || this.sdemote || conn.sdemote || '@user ```is no longer Admin```')
+            text = text.replace('@user', '@' + participants[0].split('@')[0])
+            if (chat.detect)
+                this.sendMessage(id, { text, mentions: this.parseMention(text) })
+            break
+    }
+}
+
+
                             
                          //this.sendFile(id, action === 'add' ? wel : lea, pp, 'pp.jpg', text, null, false, { mentions: [user] })
                        /*await this.sendHydrated(id, global.ucapan, text, action === 'add' ? wel.toBuffer() : lea.toBuffer(), sgc, (action == 'add' ? '💌 WELCOME' : '🐾 BYE'), user.split`@`[0], 'ɴᴜᴍʙᴇʀ ᴘᴀʀᴛɪᴄɪᴘᴀɴᴛ', [

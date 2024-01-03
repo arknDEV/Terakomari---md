@@ -476,7 +476,7 @@ export async function participantsUpdate({ id, participants, action }) {
 mediaType:  2,
 mediaUrl: 'https://www.instagram.com/p/Cch2IoGFomX/?utm_source=ig_web_copy_link',
 title: '「 ɢ ʀ ᴏ ᴜ ᴘ  ɴ ᴏ ᴛ ɪ ғ ɪ ᴄ ᴀ ᴛ ɪ ᴏ ɴ s 」',
-body: '🍂 ᴇ ʟ ᴀ ɪ ɴ ᴀ  ᴍ ᴜ ʟ ᴛ ɪ ᴅ ᴇ ᴠ ɪ ᴄ ᴇ 🍂',
+body: 'ᴛ ᴇ ʀ ᴀ ᴋ ᴏ ᴍ ᴀ ʀ ɪ',
 sourceUrl: 'https://www.instagram.com/p/Cch2IoGFomX/?utm_source=ig_web_copy_link', thumbnail: await( await this.getFile(pp)).data
   }
  }})
